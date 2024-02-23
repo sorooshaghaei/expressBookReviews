@@ -8,9 +8,12 @@ const app = express();
 
 app.use(express.json());
 
-app.use("/customer",session({secret:"fingerprint_customer",resave: true, saveUninitialized: true}))
-
-app.use("/customer/auth/*", function auth(req,res,next){
+app.use("/customer", session({
+    secret: "fingerprint_customer",
+    resave: false,
+    saveUninitialized: false,
+}));
+app.use("/customer/auth*", function auth(req, res, next) {
 // Check if the user is authenticated using the access token
 if (req.session.accessToken) {
     // User is authenticated, proceed to the next middleware or route
@@ -21,7 +24,7 @@ if (req.session.accessToken) {
   }
 });
  
-const PORT =5000;
+const PORT =6000;
 
 app.use("/customer", customer_routes);
 app.use("/", genl_routes);
