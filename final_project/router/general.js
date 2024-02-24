@@ -4,11 +4,6 @@ let isValid = require("./auth_users.js").isValid;
 let users = require("./auth_users.js").users;
 const public_users = express.Router();
 
-public_users.post("/register", (req, res) => {
-  //Write your code here
-  return res.status(300).json({ message: "Yet to be implemented" });
-});
-
 // Get the book list available in the shop
 public_users.get("/", function (req, res) {
   const bookList = JSON.stringify(books);
@@ -28,30 +23,35 @@ public_users.get("/isbn/:isbn", function (req, res) {
   }
 });
 
-
-
 // Get book details based on author
 public_users.get("/author/:author", function (req, res) {
   const { author } = req.params;
-  const booksByAuthor = books.filter((book) => book.author === author);
+  const formattedAuthor = author.replace(/\s/g, "_"); // Replace spaces with underscores
+  const booksByAuthor = Object.values(books).filter(
+    (book) => book.author.replace(/\s/g, "_") === formattedAuthor
+  );
   return res.status(200).json({ books: booksByAuthor });
 });
 
 // Get all books based on title
 public_users.get("/title/:title", function (req, res) {
   const { title } = req.params;
-  const booksByTitle = books.filter((book) => book.title === title);
+  const formatedTitle = title.replace(/\s/g, "_"); // Replace spaces with underscores
+  const booksByTitle = Object.values(books).filter(
+    (book) => book.title.replace(/\s/g, "_") === formatedTitle
+  );
   return res.status(200).json({ books: booksByTitle });
 });
 
-//  Get book review
+// Get book review
 public_users.get("/review/:isbn", function (req, res) {
   const { isbn } = req.params;
-  const bookReviews = books.find((book) => book.isbn === isbn)?.reviews || [];
+  const bookReviews =
+    Object.values(books).find((book) => book.isbn === isbn)?.reviews || [];
   return res.status(200).json({ reviews: bookReviews });
 });
 
-// register new user
+// Registration route
 public_users.post("/register", (req, res) => {
   const { username, password } = req.body;
 
