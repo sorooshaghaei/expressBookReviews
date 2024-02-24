@@ -9,6 +9,7 @@ let books = {
       8: {"isbn": "9780141439518", "author": "Jane Austen","title": "Pride and Prejudice", "reviews": {} },
       9: {"isbn": "9780140440164", "author": "Honor\u00e9 de Balzac","title": "Le P\u00e8re Goriot", "reviews": {} },
       10: {"isbn": "9780802150370", "author": "Samuel Beckett","title": "Molloy, Malone Dies, The Unnamable, the trilogy", "reviews": {} }
-}
-
-module.exports = books;
+    }
+    
+    module.exports = books;
+    

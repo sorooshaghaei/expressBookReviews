@@ -10,8 +10,8 @@ app.use(express.json());
 
 app.use("/customer", session({
     secret: "fingerprint_customer",
-    resave: false,
-    saveUninitialized: false,
+    resave: true,
+    saveUninitialized: true,
 }));
 app.use("/customer/auth*", function auth(req, res, next) {
 // Check if the user is authenticated using the access token
